@@ -19,13 +19,14 @@ public extension TransitionTransparencyProxy {
         transparentTopView = UIView()
         transparentTopView.translatesAutoresizingMaskIntoConstraints = false
         transparentTopView.backgroundColor = UIColor.black.withAlphaComponent(0)
-//        transparentTopView.isHidden = true
         view.addSubview(transparentTopView)
         
         transparentTopView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         transparentTopView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         transparentTopView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         transparentTopView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.layoutIfNeeded()
     }
     
 }
