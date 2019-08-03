@@ -114,12 +114,14 @@ class PlainPushPopAnimator: NSObject {
         containerView.addSubview(fromVC.view)
         containerView.bringSubviewToFront(fromVC.view)
         
+        
         let fromVcTranslation = fromVC.view.bounds.width
         let toVcTranslation = floor(toVC.view.bounds.width * (1 - _translationRatio))
         
         toVC.view.frame = toVC.view.frame.offsetBy(dx: -toVcTranslation, dy: 0)
-        
         UIView.animate(withDuration: transitionContext.isAnimated ? _duration : 0,
+                       delay: 0,
+                       options: [.curveLinear, .layoutSubviews],
                        animations: {
                         toVC.view.frame = toVC.view.frame.offsetBy(dx: toVcTranslation, dy: 0)
                         fromVC.view.transform = CGAffineTransform(translationX: fromVcTranslation, y: 0)
@@ -180,17 +182,14 @@ class PlainPushPopAnimator: NSObject {
         //
         UIView.animate(withDuration: transitionContext.isAnimated ? _duration : 0,
                        delay: 0,
-                       options: [.curveEaseInOut, .beginFromCurrentState, .layoutSubviews],
+                       options: [.curveLinear, .layoutSubviews],
                        animations: {
                         toView.transform = .identity
                         fromView.frame = fromView.frame.offsetBy(dx: fromVcTranslation, dy: 0)
-                        //                        fromView.transform = CGAffineTransform(translationX: fromVcTranslation, y: 0)
         }) { (_) in
             if transitionContext.transitionWasCancelled {
                 toView.removeFromSuperview()
                 fromView.isHidden = false
-            } else {
-                //                fromView.removeFromSuperview()
             }
             snapshotFrom.removeFromSuperview()
             snapshotFrom.isHidden = true
