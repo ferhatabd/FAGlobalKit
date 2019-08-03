@@ -19,6 +19,12 @@ public protocol SwipeDismissInteractibleNavigationController where Self: UINavig
     var gestureView: UIView {get}
 }
 
+public enum SwipeIntetactionControllerDirection: Int {
+    case horizontal = 0
+    case vertical = 1
+    case horizontalLeftEdge = 2
+}
+
 public class SwipeInteractionController: UIPercentDrivenInteractiveTransition {
     
     private enum InteractorType: Int {
@@ -33,26 +39,58 @@ public class SwipeInteractionController: UIPercentDrivenInteractiveTransition {
     private weak var navigationController: SwipeDismissInteractibleNavigationController!
     private let interactorType: InteractorType
     private var oldTranslation: CGFloat = 0
+    private let interactionDirection: SwipeIntetactionControllerDirection
     
-    public init(viewController: UIViewController & SwipeDismissInteractible) {
+    public init(viewController: UIViewController & SwipeDismissInteractible, direction: SwipeIntetactionControllerDirection = .vertical) {
         self.interactorType = .viewController
+        self.interactionDirection = direction
         super.init()
         self.viewController = viewController
-        prepareGestureRecognizer(in: viewController.gestureView)
+        
+        switch interactionDirection {
+        case .horizontal, .vertical:
+            prepareGestureRecognizer(in: self.viewController.gestureView)
+        case .horizontalLeftEdge:
+            prepareEdgeGestureRecognizer(in: self.viewController.gestureView, side: interactionDirection)
+        }
     }
     
-    public init(navigationController: SwipeDismissInteractibleNavigationController) {
+    public init(navigationController: SwipeDismissInteractibleNavigationController, direction: SwipeIntetactionControllerDirection = .vertical) {
         self.interactorType = .navigationController
+        self.interactionDirection = direction
+        
         super.init()
         self.navigationController = navigationController
-        prepareGestureRecognizer(in: self.navigationController.gestureView)
+        
+        switch interactionDirection {
+        case .horizontal, .vertical:
+            prepareGestureRecognizer(in: self.navigationController.gestureView)
+        case .horizontalLeftEdge:
+            prepareEdgeGestureRecognizer(in: self.navigationController.gestureView, side: interactionDirection)
+        }
+    }
+    
+    private func prepareEdgeGestureRecognizer(in view: UIView, side: SwipeIntetactionControllerDirection) {
+        
+        let gesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
+        
+        gesture.edges = [.left]
+        
+        view.addGestureRecognizer(gesture)
+        
+        switch interactorType {
+        case .viewController:
+            gesture.delegate = viewController
+        case .navigationController:
+            gesture.delegate = navigationController
+        }
     }
     
     
     private func prepareGestureRecognizer(in view: UIView) {
         
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
-        
+    
         view.addGestureRecognizer(gesture)
         
         switch interactorType {
@@ -78,7 +116,16 @@ public class SwipeInteractionController: UIPercentDrivenInteractiveTransition {
         
         let translation = gestureRecognizer.translation(in: viewToCheck)
         
-        var progress = ((translation.y * 1) / viewToCheck.bounds.height)
+        let position: CGFloat
+        
+        switch interactionDirection {
+        case .horizontal, .horizontalLeftEdge:
+            position  = translation.x
+        case .vertical:
+            position = translation.y
+        }
+        
+        var progress = ((position * 1) / viewToCheck.bounds.height)
         progress = CGFloat(fminf(fmaxf(Float(progress), 0.0), 1.0))
         
         switch gestureRecognizer.state {
@@ -86,12 +133,21 @@ public class SwipeInteractionController: UIPercentDrivenInteractiveTransition {
             interactionInProgress = true
             switch interactorType {
             case .viewController:
-                viewController.dismiss(animated: true, completion: nil)
+                if interactionDirection == .horizontalLeftEdge {
+                    viewController.navigationController?.popViewController(animated: true)
+                } else {
+                    viewController.dismiss(animated: true, completion: nil)
+                }
             case .navigationController:
-                navigationController.dismiss(animated: true, completion: nil)
+                if interactionDirection == .horizontalLeftEdge {
+                    navigationController.popViewController(animated: true)
+                } else {
+                    navigationController.dismiss(animated: true, completion: nil)
+                }
             }
             completionSpeed = 1
         case .changed:
+            interactionInProgress = true
             shouldCompleteTransition = progress > 0.4 || ((translation.y - oldTranslation) > 5)
             update(progress)
         case .cancelled:

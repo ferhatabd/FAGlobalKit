@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		50A3DEA822E0860B00E58FBE /* FAGlobalKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50A3DEA622E0860B00E58FBE /* FAGlobalKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50AC683922F57A340019F3ED /* PlainPushNavCon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC683722F57A340019F3ED /* PlainPushNavCon.swift */; };
+		50AC683A22F57A340019F3ED /* PlainPushPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AC683822F57A340019F3ED /* PlainPushPopAnimator.swift */; };
 		50DCF87022E17F9800BF5523 /* SwipeDismissInteractible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DCF86D22E17F9800BF5523 /* SwipeDismissInteractible.swift */; };
 		50DCF87122E17F9800BF5523 /* TransitionTransparencyProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DCF86E22E17F9800BF5523 /* TransitionTransparencyProxy.swift */; };
 		50DCF87222E17F9800BF5523 /* StatusBarColorProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DCF86F22E17F9800BF5523 /* StatusBarColorProxy.swift */; };
@@ -17,6 +19,8 @@
 		50A3DEA322E0860B00E58FBE /* FAGlobalKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FAGlobalKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A3DEA622E0860B00E58FBE /* FAGlobalKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAGlobalKit.h; sourceTree = "<group>"; };
 		50A3DEA722E0860B00E58FBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50AC683722F57A340019F3ED /* PlainPushNavCon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainPushNavCon.swift; sourceTree = "<group>"; };
+		50AC683822F57A340019F3ED /* PlainPushPopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainPushPopAnimator.swift; sourceTree = "<group>"; };
 		50DCF86D22E17F9800BF5523 /* SwipeDismissInteractible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeDismissInteractible.swift; sourceTree = "<group>"; };
 		50DCF86E22E17F9800BF5523 /* TransitionTransparencyProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionTransparencyProxy.swift; sourceTree = "<group>"; };
 		50DCF86F22E17F9800BF5523 /* StatusBarColorProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarColorProxy.swift; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 			children = (
 				50A3DEA722E0860B00E58FBE /* Info.plist */,
 				50A3DEA622E0860B00E58FBE /* FAGlobalKit.h */,
+				50AC683722F57A340019F3ED /* PlainPushNavCon.swift */,
+				50AC683822F57A340019F3ED /* PlainPushPopAnimator.swift */,
 				50DCF86F22E17F9800BF5523 /* StatusBarColorProxy.swift */,
 				50DCF86D22E17F9800BF5523 /* SwipeDismissInteractible.swift */,
 				50DCF86E22E17F9800BF5523 /* TransitionTransparencyProxy.swift */,
@@ -141,7 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				50DCF87022E17F9800BF5523 /* SwipeDismissInteractible.swift in Sources */,
+				50AC683922F57A340019F3ED /* PlainPushNavCon.swift in Sources */,
 				50DCF87122E17F9800BF5523 /* TransitionTransparencyProxy.swift in Sources */,
+				50AC683A22F57A340019F3ED /* PlainPushPopAnimator.swift in Sources */,
 				50DCF87222E17F9800BF5523 /* StatusBarColorProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
