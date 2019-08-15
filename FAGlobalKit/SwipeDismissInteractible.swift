@@ -136,7 +136,11 @@ public class SwipeInteractionController: UIPercentDrivenInteractiveTransition {
                 if interactionDirection == .horizontalLeftEdge {
                     viewController.navigationController?.popViewController(animated: true)
                 } else {
-                    viewController.dismiss(animated: true, completion: nil)
+                    if let presenting = viewController.presentingViewController {
+                        presenting.dismiss(animated: true, completion: nil)
+                    } else {
+                        viewController.dismiss(animated: true, completion: nil)
+                    }
                 }
             case .navigationController:
                 if interactionDirection == .horizontalLeftEdge {
