@@ -14,7 +14,6 @@ import UIKit
 /// during the animations. That case, the fading of the push/pop animations
 /// make the colors seem incomplete
 class PlainPushNavCon: UINavigationController, SwipeDismissInteractibleNavigationController, UIGestureRecognizerDelegate {
-    
     /// interaction controller for the animations
     public var navigationControllerInteractor: SwipeInteractionController?
     
@@ -29,8 +28,13 @@ class PlainPushNavCon: UINavigationController, SwipeDismissInteractibleNavigatio
         navigationControllerInteractor = SwipeInteractionController(navigationController: self, direction: .horizontalLeftEdge)
     }
     
+    func gestureToBeFailedByDismiss(gesture: UIGestureRecognizer) -> UIGestureRecognizer? {
+        return nil
+    }
     
-    
+    func gestureToUse() -> UIPanGestureRecognizer? {
+        return nil
+    }
     
 }
 
